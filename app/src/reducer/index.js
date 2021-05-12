@@ -1,8 +1,10 @@
-import { FIND_PLAYER, CLEAR_INPUT } from '../actions/searchPlayerActions';
+import { FIND_PLAYER, CLEAR_INPUT, FETCH_START, FETCH_SUCCESS, FETCH_ERROR } from '../actions/searchPlayerActions';
 
 const initialState = {
     playerSearched: '',
-    // playerStats: 
+    isFetching: false,
+    playerStats: {},
+    error: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +19,23 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 playerSearched: ''
             });
+        case(FETCH_START):
+            return({
+                ...state,
+                isFetching: true
+            });
+        case(FETCH_SUCCESS):
+            return({
+                ...state,
+                playerStats: action.payload,
+                isFetching: false
+            })
+        case(FETCH_ERROR):
+            return({
+                ...state,
+                error: action.payload,
+                isFetching: false
+            })
         default:
             return(state);
     }
