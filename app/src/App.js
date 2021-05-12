@@ -1,9 +1,14 @@
 import './App.css';
+import SearchPlayer from './components/searchForm';
+import PlayerCard from './components/playerCard';
+
 
 function App() {
   return (
     <div className="App">
-      <h1>hello</h1> 
+      <h1>NBA Player Season Averages</h1> 
+      <SearchPlayer />
+      <PlayerCard />
     </div>
   );
 }
