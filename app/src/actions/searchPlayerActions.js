@@ -15,29 +15,18 @@ export const clearInput = () => {
     return({type: CLEAR_INPUT});
 };
 
-export const fetchPlayer = () => {
+
+export const fetchPlayerStats = () => {
     return(dispatch => {
         dispatch({type: FETCH_START});
 
-        axios.get('https://www.balldontlie.io/api/v1/season_averages?&player_ids[]=237')
+        axios.get(`https://www.balldontlie.io/api/v1/season_averages?&player_ids[]=${Math.floor(Math.random()*11)}}`)
             .then(res => {
                 console.log(res.data.data[0]);
-                dispatch({type: FETCH_SUCCESS, payload: res.data.data[0]}); // will be obj
+                dispatch({type: FETCH_SUCCESS, payload: res.data.data[0]});
             })
             .catch(err => {
                 dispatch({type: FETCH_ERROR, payload: err});
             })
     })
 };
-
-// export const fetchStart = () => {
-//     return({type: FETCH_START});
-// };
-
-// export const fetchSuccess = (player) => {
-//     return({type: FETCH_SUCCESS, payload: player});
-// };
-
-// export const fetchError = (error) => {
-//     return({type: FETCH_ERROR, payload: error});
-// };

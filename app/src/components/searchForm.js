@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { findPlayer, clearInput, fetchPlayer } from '../actions/searchPlayerActions';
+import { findPlayer, clearInput, fetchPlayerStats } from '../actions/searchPlayerActions';
 
 
 const SearchPlayer = (props) => {
 
 
-    const handleChange = (e) => {
-        props.findPlayer(e.target.value); // action to update playerSearched state
-    };
+    // const handleChange = (e) => {
+    //     props.findPlayer(e.target.value); // action to update playerFirstName state
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.fetchPlayer(); // action to axios call
+        props.fetchPlayerStats(); // action to axios call
         props.clearInput();
     };
 
@@ -28,28 +28,29 @@ const SearchPlayer = (props) => {
     return(
         <div>
             <h2>Search Player</h2>
-            <form onSubmit={handleSubmit}>
+            {/* <form onSubmit={handleSubmit}>
                 <label>
                     <input 
                         type='text'
                         name='player'
-                        value={props.playerSearched} // playerSearched
+                        value={props.playerFirstName} // playerFirstName
                         onChange={handleChange}
+                        placeholder='First Name'
                     />
-                </label>
-                <button>Search</button>
-            </form>
+                </label> */}
+                <button onClick={handleSubmit}>Search Random Player</button>
+            {/* </form> */}
         </div>
     );
 };
 
 const mapStateToProps = state => {
     return {
-        playerSearched: state.playerSearched,
+        playerFirstName: state.playerFirstName,
         // error: state.error,
         // isFetching: state.isFetching
     };
 };
 
 
-export default connect(mapStateToProps, {findPlayer, clearInput, fetchPlayer})(SearchPlayer);
+export default connect(mapStateToProps, {findPlayer, clearInput, fetchPlayerStats})(SearchPlayer);
