@@ -4,7 +4,7 @@ const initialState = {
     playerFirstName: '',
     playerLastName: '',
     isFetching: false,
-    players: {},
+    players: [],
     error: '',
     playerStats: {}
 };
@@ -53,7 +53,8 @@ const reducer = (state = initialState, action) => {
             return({
                 ...state,
                 playerStats: action.payload
-            })
+            }
+            )
         default:
             return(state);
     }

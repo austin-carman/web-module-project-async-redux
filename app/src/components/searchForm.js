@@ -15,12 +15,11 @@ const SearchPlayer = (props) => {
         } else {
             return null;
         }
-        // props.findFirstName(name, value); // action to update playerFirstName state
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.fetchPlayer(e.target.value); 
+        props.fetchPlayer(props.playerFirstName, props.playerLastName); 
         props.clearInput();
     };
 
@@ -64,6 +63,7 @@ const SearchPlayer = (props) => {
 const mapStateToProps = state => {
     return {
         playerFirstName: state.playerFirstName,
+        playerLastName: state.playerLastName
         // error: state.error,
         // isFetching: state.isFetching
     };

@@ -24,15 +24,33 @@ export const clearInput = () => {
     return({type: CLEAR_INPUT});
 };
 
-
-export const fetchPlayer = (name) => {
+export const fetchPlayer = (firstName, lastName) => {
     return(dispatch => {
-        dispatch({type: FETCH_START});
+        // dispatch({type: FETCH_START});
 
-        axios.get(`https://www.balldontlie.io/api/v1/players/${Math.floor(Math.random()*20)}`)
+        axios.get(`https://www.balldontlie.io/api/v1/players`)
             .then(res => {
-                // console.log(res);
-                dispatch({type: FETCH_SUCCESS, payload: res.data});
+
+
+                const player = res.data.data.find( ({first_name}) => first_name === firstName);
+                const playerByLast = res.data.data.find( ({last_name}) => last_name === lastName);
+
+                console.log('player: ', res.data.data);
+                console.log('First Name: ', firstName);
+                console.log('Last Name: ', lastName);
+                console.log('Finding By First: ', player);
+                console.log('Finding By Last: ', playerByLast);
+
+                
+
+                dispatch({type: FETCH_SUCCESS, payload: player});
+                axios.get(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=237`)
+                    .then(res => {
+                        dispatch({type: FETCH_STATS_SUCCESS, payload: res.data.data[0]});
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
             })
             .catch(err => {
                 dispatch({type: FETCH_ERROR, payload: err});
@@ -46,8 +64,8 @@ export const fetchPlayer = (name) => {
 
 //         axios.get(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${id}`)
 //             .then(res => {
-//                 console.log(res.data.data[0]);
-//                 dispatch({type: FETCH_STATS_SUCCESS, payload: res.data.data[0]});
+//                 console.log('player stats: ', res);
+//                 // dispatch({type: FETCH_STATS_SUCCESS, payload: res.data.data});
 //             })
 //             .catch(err => {
 //                 console.log(err);
