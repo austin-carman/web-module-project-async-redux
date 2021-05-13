@@ -3,7 +3,7 @@ import { FETCH_START, FETCH_SUCCESS, FETCH_FAIL } from '../actions/actions';
 const initialState = {
     dogs: [],
     isFetching: false,
-    error:''
+    error:'',
 }
 
 const reducer = (state = initialState, action) => {

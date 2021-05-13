@@ -18,7 +18,6 @@ const Dogs = (props) => {
 
     }
     
-
     return(
         <div>
             <input 
@@ -28,9 +27,9 @@ const Dogs = (props) => {
                 onChange={handleChange}
                 />
             <button onClick={handleClick}>Search</button>
-            {formValue.breed ? <h2>{formValue.breed}</h2>: null}
+            <div></div>
             {props.dogs.map(url => {
-                return <img key={url} src={url} alt='dog' />
+                return <img className='dog-pic' key={url} src={url} alt='dog' />
             })}
         </div>
     )
