@@ -1,24 +1,32 @@
-import { FIND_PLAYER, CLEAR_INPUT, FETCH_START, FETCH_SUCCESS, FETCH_ERROR } from '../actions/searchPlayerActions';
+import { FETCH_STATS, FETCH_STATS_SUCCESS, FIND_FIRST_NAME, FIND_LAST_NAME, CLEAR_INPUT, FETCH_START, FETCH_SUCCESS, FETCH_ERROR } from '../actions/searchPlayerActions';
 
 const initialState = {
-    playerSearched: '',
+    playerFirstName: '',
+    playerLastName: '',
     isFetching: false,
-    playerStats: {},
-    error: ''
+    players: {},
+    error: '',
+    playerStats: {}
 };
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case(FIND_PLAYER):
+        case(FIND_FIRST_NAME):
             return({
                 ...state,
-                playerSearched: action.payload
+                playerFirstName: action.payload
             });
-        case(CLEAR_INPUT):
+        case(FIND_LAST_NAME):
             return({
                 ...state,
-                playerSearched: ''
+                playerLastName: action.payload
             });
+        // case(CLEAR_INPUT):
+        //     return({
+        //         ...state,
+        //         playerFirstName: '',
+        //         playerLastName: '',
+        //     });
         case(FETCH_START):
             return({
                 ...state,
@@ -27,7 +35,7 @@ const reducer = (state = initialState, action) => {
         case(FETCH_SUCCESS):
             return({
                 ...state,
-                playerStats: action.payload,
+                players: action.payload,
                 isFetching: false
             })
         case(FETCH_ERROR):
@@ -35,6 +43,16 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 isFetching: false
+            })
+        case(FETCH_STATS):
+            return({
+                ...state,
+                isFetching:true
+            })
+        case(FETCH_STATS_SUCCESS):
+            return({
+                ...state,
+                playerStats: action.payload
             })
         default:
             return(state);

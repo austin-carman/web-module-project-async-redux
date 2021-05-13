@@ -1,18 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { findPlayer, clearInput, fetchPlayerStats } from '../actions/searchPlayerActions';
+import { findFirstName, findLastName, clearInput, fetchPlayer } from '../actions/searchPlayerActions';
 
 
 const SearchPlayer = (props) => {
 
 
-    // const handleChange = (e) => {
-    //     props.findPlayer(e.target.value); // action to update playerFirstName state
-    // };
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        if(name === 'playerFirst') {
+            props.findFirstName(value);
+        } else if(name === 'playerLast') {
+            props.findLastName(value);
+        } else {
+            return null;
+        }
+        // props.findFirstName(name, value); // action to update playerFirstName state
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.fetchPlayerStats(); // action to axios call
+        props.fetchPlayer(e.target.value); 
         props.clearInput();
     };
 
@@ -28,18 +36,27 @@ const SearchPlayer = (props) => {
     return(
         <div>
             <h2>Search Player</h2>
-            {/* <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <label>
                     <input 
                         type='text'
-                        name='player'
-                        value={props.playerFirstName} // playerFirstName
+                        name='playerFirst'
+                        value={props.playerFirstName} 
                         onChange={handleChange}
                         placeholder='First Name'
                     />
-                </label> */}
+                </label>
+                <label>
+                    <input 
+                        type='text'
+                        name='playerLast'
+                        value={props.playerLastName} 
+                        onChange={handleChange}
+                        placeholder='Last Name'
+                    />
+                </label>
                 <button onClick={handleSubmit}>Search Random Player</button>
-            {/* </form> */}
+            </form>
         </div>
     );
 };
@@ -53,4 +70,4 @@ const mapStateToProps = state => {
 };
 
 
-export default connect(mapStateToProps, {findPlayer, clearInput, fetchPlayerStats})(SearchPlayer);
+export default connect(mapStateToProps, {findFirstName, findLastName, clearInput, fetchPlayer})(SearchPlayer);
